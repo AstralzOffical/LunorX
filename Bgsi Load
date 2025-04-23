@@ -1,0 +1,111 @@
+local player = game.Players.LocalPlayer
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "LoadingGUI"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = player:WaitForChild("PlayerGui") -- Attach to PlayerGui
+
+-- Medium-sized GUI frame with a purple and black theme
+local background = Instance.new("Frame")
+background.Size = UDim2.new(0.4, 0, 0.3, 0) -- Medium size
+background.Position = UDim2.new(0.3, 0, 0.35, 0) -- Centered
+background.BackgroundColor3 = Color3.fromRGB(75, 0, 130) -- Purple and black blend
+background.BorderSizePixel = 0
+background.Parent = ScreenGui
+
+-- Adding smooth, curved corners
+local bgCorner = Instance.new("UICorner")
+bgCorner.CornerRadius = UDim.new(0.1, 0) -- Curved corners
+bgCorner.Parent = background
+
+-- Title text
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0.2, 0)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.Text = "Lunor Hub Loading..."
+title.TextScaled = true
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.BackgroundTransparency = 1
+title.Font = Enum.Font.FredokaOne -- Fancy font style
+title.Parent = background
+
+-- Loading message text
+local loadingText = Instance.new("TextLabel")
+loadingText.Size = UDim2.new(1, 0, 0.1, 0)
+loadingText.Position = UDim2.new(0, 0, 0.35, 0)
+loadingText.Text = ""
+loadingText.TextScaled = true
+loadingText.BackgroundTransparency = 1
+loadingText.TextColor3 = Color3.fromRGB(255, 255, 255)
+loadingText.Font = Enum.Font.FredokaOne
+loadingText.Parent = background
+
+-- Progress bar background
+local progressBarBG = Instance.new("Frame")
+progressBarBG.Size = UDim2.new(0.8, 0, 0.1, 0)
+progressBarBG.Position = UDim2.new(0.1, 0, 0.55, 0)
+progressBarBG.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+progressBarBG.BorderSizePixel = 0
+progressBarBG.Parent = background
+
+-- Adding rounded corners to the progress bar background
+local progressBarBGCorner = Instance.new("UICorner")
+progressBarBGCorner.CornerRadius = UDim.new(0.1, 0)
+progressBarBGCorner.Parent = progressBarBG
+
+-- Progress bar
+local progressBar = Instance.new("Frame")
+progressBar.Size = UDim2.new(0, 0, 1, 0)
+progressBar.Position = UDim2.new(0, 0, 0, 0)
+progressBar.BackgroundColor3 = Color3.fromRGB(186, 85, 211) -- Lighter purple
+progressBar.BorderSizePixel = 0
+progressBar.Parent = progressBarBG
+
+-- Adding rounded corners to the progress bar
+local progressBarCorner = Instance.new("UICorner")
+progressBarCorner.CornerRadius = UDim.new(0.1, 0)
+progressBarCorner.Parent = progressBar
+
+-- Percentage text
+local percentageText = Instance.new("TextLabel")
+percentageText.Size = UDim2.new(1, 0, 0.1, 0)
+percentageText.Position = UDim2.new(0, 0, 0.65, 0)
+percentageText.Text = "0%"
+percentageText.TextScaled = true
+percentageText.BackgroundTransparency = 1
+percentageText.TextColor3 = Color3.fromRGB(255, 255, 255) -- White for visibility
+percentageText.Font = Enum.Font.FredokaOne
+percentageText.Parent = background
+
+-- "Made By Lunor.Devv" Text
+local credit = Instance.new("TextLabel")
+credit.Size = UDim2.new(1, 0, 0.1, 0)
+credit.Position = UDim2.new(0, 0, 0.8, 0)
+credit.Text = "Made By Lunor.Devv"
+credit.TextScaled = true
+credit.BackgroundTransparency = 1
+credit.TextColor3 = Color3.fromRGB(200, 200, 200)
+credit.Font = Enum.Font.FredokaOne
+credit.Parent = background
+
+-- Adding smooth corners to the credit text
+local creditCorner = Instance.new("UICorner")
+creditCorner.CornerRadius = UDim.new(0.1, 0)
+creditCorner.Parent = credit
+
+-- Animation: Changing text dynamically
+local messages = {"Lunor Hub Loading...", "Waiting for assets to load...", "Preparing everything..."}
+for _, message in ipairs(messages) do
+    loadingText.Text = message
+    wait(2) -- Display each message for 2 seconds
+end
+
+-- Progress animation for the loading bar and percentage
+for i = 0, 100 do
+    progressBar.Size = UDim2.new(i / 100, 0, 1, 0)
+    percentageText.Text = i .. "%"
+    wait(2) -- Smooth progression
+end
+
+-- Remove GUI after loading
+wait(1)
+ScreenGui:Destroy()
